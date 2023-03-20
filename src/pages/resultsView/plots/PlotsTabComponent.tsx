@@ -230,6 +230,7 @@ export type ColoringMenuSelection = {
 export interface IPlotsTabProps {
     store: ResultsViewPageStore;
     urlWrapper: ResultsViewURLWrapper;
+    current_gene: any;
 }
 
 export type PlotsTabDataSource = {
@@ -728,6 +729,7 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
 
     private initAxisMenuSelection(vertical: boolean): AxisMenuSelection {
         const self = this;
+        const current_gene = this.props.current_gene;
 
         return observable({
             get entrezGeneId() {
@@ -760,8 +762,12 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
                     this._selectedGeneOption === undefined &&
                     geneOptions.length
                 ) {
+                    const foundIndex = geneOptions.findIndex(
+                        gene => gene.value === current_gene.info.entrezGeneId
+                    );
+
                     // select default if _selectedGeneOption is undefined and theres defaults to choose from
-                    return geneOptions[0];
+                    return geneOptions[foundIndex];
                 } else if (
                     vertical &&
                     this._selectedGeneOption &&
@@ -954,6 +960,9 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
                     this._selectedGenesetOption === undefined &&
                     genesetOptions.length
                 ) {
+                    console.log('genesetOptions', genesetOptions);
+
+                    // const foundIndex = geneOptions.findIndex((gene) => gene.value === current_gene.info.entrezGeneId);
                     // select default if _selectedGenesetOption is undefined and theres defaults to choose from
                     return genesetOptions[0];
                 } else if (
@@ -1287,6 +1296,8 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
 
     private initColoringMenuSelection(): ColoringMenuSelection {
         const self = this;
+        const current_gene = this.props.current_gene;
+
         return observable({
             get selectedOption() {
                 const options = self.coloringMenuOmnibarOptions.isComplete
@@ -1321,13 +1332,20 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
 
                     if (!option) {
                         // Otherwise, find first gene option
+                        // option = options.find(
+                        //     o =>
+                        //         o.info.entrezGeneId !== undefined &&
+                        //         o.info.entrezGeneId !==
+                        //             NONE_SELECTED_OPTION_NUMERICAL_VALUE
+                        // );
+
                         option = options.find(
                             o =>
-                                o.info.entrezGeneId !== undefined &&
-                                o.info.entrezGeneId !==
-                                    NONE_SELECTED_OPTION_NUMERICAL_VALUE
+                                o.info.entrezGeneId ===
+                                current_gene.info.entrezGeneId
                         );
                     }
+
                     return option;
                 } else {
                     // otherwise, return stored value for this variable
@@ -1682,7 +1700,12 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
 
     @action.bound
     private onColoringMenuOptionSelect(option: any) {
+        console.log('ONChangeggds---->', option);
         this.coloringMenuSelection.selectedOption = option;
+        console.log(
+            'this.coloringMenuSelectionONChangeggds---->',
+            this.coloringMenuSelection
+        );
     }
 
     public test__selectGeneOption(vertical: boolean, optionValue: any) {
@@ -1825,6 +1848,8 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
                     },
                 })),
             });
+
+            console.log('allOptions', allOptions);
 
             allOptions.push({
                 label: 'Clinical Attributes',
