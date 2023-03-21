@@ -309,6 +309,8 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
     @observable boxPlotSortByMedian = false;
     @observable.ref searchCaseInput: string;
     @observable.ref searchMutationInput: string;
+    @observable.ref selectedMutationType: boolean;
+    @observable.ref selectedStructuralType: boolean;
     @observable showRegressionLine = false;
     // discrete vs discrete settings
     @observable discreteVsDiscretePlotType: DiscreteVsDiscretePlotType =
@@ -341,8 +343,10 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
     private onClickColorByCopyNumber() {
         if (this.plotType.result === PlotType.WaterfallPlot) {
             // waterfall plot has radio buttons
-            this.setColorByMutationType(false);
-            this.setColorByStructuralVariant(false);
+            // this.setColorByMutationType(false);
+            this.selectedMutationType = false;
+            // this.setColorByStructuralVariant(false);
+            this.selectedStructuralType = false;
             this.setColorByCopyNumber(true);
         } else {
             this.setColorByCopyNumber(
@@ -356,12 +360,15 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
         if (this.plotType.result === PlotType.WaterfallPlot) {
             // waterfall plot has radio buttons
             this.setColorByCopyNumber(false);
-            this.setColorByStructuralVariant(false);
-            this.setColorByMutationType(true);
+            // this.setColorByStructuralVariant(false);
+            this.selectedStructuralType = false;
+            // this.setColorByMutationType(true);
+            this.selectedMutationType = true;
         } else {
-            this.setColorByMutationType(
-                !this.coloringMenuSelection.colorByMutationType
-            );
+            // this.setColorByMutationType(
+            //     !this.coloringMenuSelection.colorByMutationType
+            // );
+            this.selectedMutationType = !this.selectedMutationType;
         }
     }
 
@@ -370,12 +377,15 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
         if (this.plotType.result === PlotType.WaterfallPlot) {
             // waterfall plot has radio buttons
             this.setColorByCopyNumber(false);
-            this.setColorByMutationType(false);
-            this.setColorByStructuralVariant(true);
+            // this.setColorByMutationType(false);
+            this.selectedMutationType = false;
+            // this.setColorByStructuralVariant(true);
+            this.selectedStructuralType = true;
         } else {
-            this.setColorByStructuralVariant(
-                !this.coloringMenuSelection.colorByStructuralVariant
-            );
+            // this.setColorByStructuralVariant(
+            //     !this.coloringMenuSelection.colorByStructuralVariant
+            // );
+            this.selectedStructuralType = !this.selectedStructuralType;
         }
     }
 
@@ -391,11 +401,13 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
         }
 
         let ret: SelectedColoringTypes = {};
-        const colorByMutationType = this.coloringMenuSelection
-            .colorByMutationType;
+        // const colorByMutationType = this.coloringMenuSelection
+        //     .colorByMutationType;
+        const colorByMutationType = this.selectedMutationType;
         const colorByCopyNumber = this.coloringMenuSelection.colorByCopyNumber;
-        const colorByStructuralVariant = this.coloringMenuSelection
-            .colorByStructuralVariant;
+        // const colorByStructuralVariant = this.coloringMenuSelection
+        //     .colorByStructuralVariant;
+        const colorByStructuralVariant = this.selectedStructuralType;
 
         if (
             this.potentialColoringType === PotentialColoringType.GenomicData ||
@@ -716,6 +728,9 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
 
         this.searchCaseInput = '';
         this.searchMutationInput = '';
+
+        this.selectedMutationType = true;
+        this.selectedStructuralType = true;
 
         (window as any).resultsViewPlotsTab = this;
     }
@@ -1387,16 +1402,19 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
             get colorByMutationType() {
                 // default true
                 return (
-                    self.props.urlWrapper.query.plots_coloring_selection
-                        .colorByMutationType !== 'false'
+                    // self.props.urlWrapper.query.plots_coloring_selection
+                    //     .colorByMutationType !== 'false'
+                    this.selectedMutationType !== false
                 );
             },
             get colorByCopyNumber() {
                 // radio buttons in waterfall plot
                 if (self.plotType.result === PlotType.WaterfallPlot) {
                     return (
+                        // this.colorByCopyNumberFromUrl &&
+                        // !this.colorByMutationType
                         this.colorByCopyNumberFromUrl &&
-                        !this.colorByMutationType
+                        !this.selectedMutationType
                     );
                 } else {
                     return this.colorByCopyNumberFromUrl;
@@ -1413,19 +1431,23 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
                 // radio buttons in waterfall plot
                 if (self.plotType.result === PlotType.WaterfallPlot) {
                     return (
-                        this.colorByStructuralVariantFromUrl &&
+                        // this.colorByStructuralVariantFromUrl &&
+                        this.selectedStructuralType &&
                         !this.colorByCopyNumberFromUrl &&
-                        !this.colorByMutationType
+                        // !this.colorByMutationType
+                        !this.selectedMutationType
                     );
                 } else {
-                    return this.colorByStructuralVariantFromUrl;
+                    // return this.colorByStructuralVariantFromUrl;
+                    return this.selectedStructuralType;
                 }
             },
             get colorByStructuralVariantFromUrl() {
                 // default true
                 return (
-                    self.props.urlWrapper.query.plots_coloring_selection
-                        .colorBySv !== 'false'
+                    // self.props.urlWrapper.query.plots_coloring_selection
+                    //     .colorBySv !== 'false'
+                    this.selectedStructuralType !== 'false'
                 );
             },
             default: {
@@ -1511,7 +1533,8 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
                                 horzLabel,
                                 vertLabel,
                                 entrezGeneIdToGene,
-                                this.coloringMenuSelection.colorByMutationType,
+                                // this.coloringMenuSelection.colorByMutationType,
+                                this.selectedMutationType,
                                 this.coloringMenuSelection.colorByCopyNumber,
                                 this.coloringMenuSelection.selectedOption &&
                                     this.coloringMenuSelection.selectedOption
@@ -1528,7 +1551,8 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
                                 this.waterfallPlotPivotThreshold,
                                 this.waterfallLabel.result!,
                                 entrezGeneIdToGene,
-                                this.coloringMenuSelection.colorByMutationType,
+                                // this.coloringMenuSelection.colorByMutationType,
+                                this.selectedMutationType,
                                 this.coloringMenuSelection.colorByCopyNumber,
                                 this.coloringMenuSelection.selectedOption &&
                                     this.coloringMenuSelection.selectedOption
@@ -1551,7 +1575,8 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
                                 categoryLabel,
                                 valueLabel,
                                 entrezGeneIdToGene,
-                                this.coloringMenuSelection.colorByMutationType,
+                                // this.coloringMenuSelection.colorByMutationType,
+                                this.selectedMutationType,
                                 this.coloringMenuSelection.colorByCopyNumber,
                                 this.coloringMenuSelection.selectedOption &&
                                     this.coloringMenuSelection.selectedOption
@@ -2498,9 +2523,11 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
             this.coloringMenuSelection.selectedOption.info.entrezGeneId !==
                 NONE_SELECTED_OPTION_NUMERICAL_VALUE &&
             !this.coloringMenuSelection.colorByCopyNumber &&
-            !this.coloringMenuSelection.colorByMutationType
+            // !this.coloringMenuSelection.colorByMutationType
+            !this.selectedMutationType
         ) {
-            this.setColorByMutationType(true);
+            // this.setColorByMutationType(true);
+            this.selectedMutationType = true;
             this.setColorByCopyNumber(true);
         }
     }
@@ -5295,9 +5322,11 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
                                             this.canColorByMutationData && (
                                                 <LabeledCheckbox
                                                     checked={
+                                                        // this
+                                                        //     .coloringMenuSelection
+                                                        //     .colorByMutationType
                                                         this
-                                                            .coloringMenuSelection
-                                                            .colorByMutationType
+                                                            .selectedMutationType
                                                     }
                                                     onChange={
                                                         this
@@ -5320,9 +5349,11 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
                                             this.canColorBySVData && (
                                                 <LabeledCheckbox
                                                     checked={
+                                                        // this
+                                                        //     .coloringMenuSelection
+                                                        //     .colorByStructuralVariant
                                                         this
-                                                            .coloringMenuSelection
-                                                            .colorByStructuralVariant
+                                                            .selectedStructuralType
                                                     }
                                                     onChange={
                                                         this
@@ -5375,17 +5406,22 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
                                                         !this
                                                             .coloringMenuSelection
                                                             .colorByCopyNumber &&
+                                                        // !this
+                                                        //     .coloringMenuSelection
+                                                        //     .colorByMutationType &&
                                                         !this
-                                                            .coloringMenuSelection
-                                                            .colorByMutationType &&
+                                                            .selectedMutationType &&
+                                                        // !this
+                                                        //     .coloringMenuSelection
+                                                        //     .colorByStructuralVariant
                                                         !this
-                                                            .coloringMenuSelection
-                                                            .colorByStructuralVariant
+                                                            .selectedStructuralType
                                                     }
                                                     onChange={action(() => {
-                                                        this.setColorByMutationType(
-                                                            false
-                                                        );
+                                                        // this.setColorByMutationType(
+                                                        //     false
+                                                        // );
+                                                        this.selectedMutationType = false;
                                                         this.setColorByCopyNumber(
                                                             false
                                                         );
