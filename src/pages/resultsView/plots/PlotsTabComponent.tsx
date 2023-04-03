@@ -1482,7 +1482,7 @@ export default class PlotsTab extends React.Component<IPlotsTabProps, {}> {
                 return (
                     // self.props.urlWrapper.query.plots_coloring_selection
                     //     .colorBySv !== 'false'
-                    this.selectedStructuralType !== 'false'
+                    this.selectedStructuralType !== false
                 );
             },
             default: {
