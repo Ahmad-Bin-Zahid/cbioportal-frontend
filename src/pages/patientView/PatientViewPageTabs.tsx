@@ -17,6 +17,7 @@ import ResourcesTab, {
 } from 'pages/patientView/resources/ResourcesTab';
 import PathologyReport from 'pages/patientView/pathologyReport/PathologyReport';
 import CustomPathologyReport from 'pages/patientView/pathologyReport/CustomPathologyReport';
+import CustomTissueImage from 'pages/patientView/tissueImage/CustomTissueImage';
 import IFrameLoader from 'shared/components/iframeLoader/IFrameLoader';
 import { getDigitalSlideArchiveIFrameUrl } from 'shared/api/urls';
 import TrialMatchTable from 'pages/patientView/trialMatch/TrialMatchTable';
@@ -51,6 +52,7 @@ export enum PatientViewPageTabs {
     MutationalSignatures = 'mutationalSignatures',
     PathwayMapper = 'pathways',
     CustomPathologyReport = 'customPathologyReport',
+    CustomTissueImage = 'customTissueImage',
 }
 
 export const PatientViewResourceTabPrefix = 'openResource_';
@@ -646,6 +648,21 @@ export function tabs(
         >
             <div>
                 <CustomPathologyReport
+                    iframeHeight={WindowStore.size.height - 220}
+                />
+            </div>
+        </MSKTab>
+    );
+
+    tabs.push(
+        <MSKTab
+            key={10}
+            id={PatientViewPageTabs.CustomTissueImage}
+            linkText="Custom Tissue Image"
+            hide={false}
+        >
+            <div>
+                <CustomTissueImage
                     iframeHeight={WindowStore.size.height - 220}
                 />
             </div>

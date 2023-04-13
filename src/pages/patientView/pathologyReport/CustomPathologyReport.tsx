@@ -21,9 +21,11 @@ export default class PathologyReport extends React.Component<
     constructor(props: IPathologyReportProps) {
         super(props);
 
-        // let pdfURL = "https://hungrybites-admin.crunchyapps.com/driver/report.pdf";
-        let pdfURL =
-            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
+        const searchParams = new URLSearchParams(document.location.search);
+        const studyId = searchParams.get('studyId');
+        const caseId = searchParams.get('caseId');
+
+        let pdfURL = `https://ilabportal-file-uploader.crunchyapps.com/uploads/${studyId}/${caseId}/report/${caseId}.pdf`;
 
         this.state = { pdfUrl: this.buildPDFUrl(pdfURL) };
     }

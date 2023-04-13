@@ -118,11 +118,10 @@ export default class PortalHeader extends React.Component<
             <header>
                 <div id="leftHeaderContent">
                     <Link to="/" id="cbioportal-logo">
-                        {/* <img
-                            src={require('../../globalStyles/images/cbioportal_logo.png')}
+                        <img
+                            src={require('../../rootImages/portalLogo.png')}
                             alt="cBioPortal Logo"
-                        /> */}
-                        iLabPortal
+                        />
                     </Link>
                     <nav id="main-nav">
                         <ul>{this.getTabs()}</ul>

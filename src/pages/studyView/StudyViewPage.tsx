@@ -69,6 +69,8 @@ import { CustomChartData } from 'shared/api/session-service/sessionServiceModels
 import { HelpWidget } from 'shared/components/HelpWidget/HelpWidget';
 import URL from 'url';
 import { buildCBioPortalPageUrl } from 'shared/api/urls';
+import CustomPathologyReport from './customPathology/CustomPathology';
+import WindowStore from 'shared/components/window/WindowStore';
 
 export interface IStudyViewPageProps {
     routing: any;
@@ -623,6 +625,23 @@ export default class StudyViewPage extends React.Component<
                                             <ResourcesTab
                                                 store={this.store}
                                                 openResource={this.openResource}
+                                            />
+                                        </div>
+                                    </MSKTab>
+                                    <MSKTab
+                                        key={5}
+                                        id={
+                                            StudyViewPageTabKeyEnum.CUSTOM_PATHOLOGY
+                                        }
+                                        linkText={'Custom Pathology'}
+                                        hide={false}
+                                    >
+                                        <div>
+                                            <CustomPathologyReport
+                                                iframeHeight={
+                                                    WindowStore.size.height -
+                                                    220
+                                                }
                                             />
                                         </div>
                                     </MSKTab>

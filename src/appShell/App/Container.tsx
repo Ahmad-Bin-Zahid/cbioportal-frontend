@@ -104,7 +104,10 @@ export default class Container extends React.Component<IContainerProps, {}> {
                     <div>
                         <Helmet>
                             <meta charSet="utf-8" />
-                            <title>{getServerConfig().skin_title}</title>
+                            <title>
+                                Iqbal Lab BioPortal: University of Nebraska
+                                Medical Center
+                            </title>
                             <meta
                                 name="description"
                                 content={getServerConfig().skin_description}
