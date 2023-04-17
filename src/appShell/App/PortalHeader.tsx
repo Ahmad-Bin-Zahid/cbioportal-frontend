@@ -122,6 +122,10 @@ export default class PortalHeader extends React.Component<
                             src={require('../../rootImages/portalLogo.png')}
                             alt="cBioPortal Logo"
                         />
+                        <span style={{ fontSize: '22px', marginLeft: '10px' }}>
+                            Iqbal Lab BioPortal: University of Nebraska Medical
+                            Center
+                        </span>
                     </Link>
                     <nav id="main-nav">
                         <ul>{this.getTabs()}</ul>
