@@ -75,6 +75,7 @@ export default class CustomTissueImage extends React.Component<
                                             src={`https://ilabportal-file-uploader.crunchyapps.com/uploads/${this.state.studyId}/${this.state.caseId}/images/${single}`}
                                             alt=""
                                             key={single}
+                                            style={{ width: '50%' }}
                                         />
                                     )
                                 )}
