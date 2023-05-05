@@ -24,6 +24,7 @@ const ZoomImage = ({ image }: ZoomImageProps) => {
 
     const handleWheel = (event: any) => {
         const { deltaY } = event;
+
         if (!dragging) {
             setZoom(zoom =>
                 clamp(
@@ -54,6 +55,28 @@ const ZoomImage = ({ image }: ZoomImageProps) => {
     };
 
     const handleMouseUp = () => setDragging(false);
+
+    const handleSliderChange = (e: any) => {
+        console.log('chnagig');
+
+        const value = e.target.value;
+        console.log('zoom', zoom);
+        console.log('value', value);
+        console.log(
+            'new',
+            clamp(value + 1 * SCROLL_SENSITIVITY * -1, MIN_ZOOM, MAX_ZOOM)
+        );
+
+        // if (!dragging) {
+        //     setZoom(zoom =>
+        //         clamp(
+        //             value * -1,
+        //             MIN_ZOOM,
+        //             MAX_ZOOM
+        //         )
+        //     );
+        // }
+    };
 
     const draw = () => {
         if (canvasRef.current) {
@@ -147,26 +170,43 @@ const ZoomImage = ({ image }: ZoomImageProps) => {
     }, [zoom, offset]);
 
     return (
-        <div
-            ref={containerRef}
-            style={{
-                border: '1px solid #dddddd',
-                width: '50%',
-                height: '500px',
-                overflow: 'hidden',
-            }}
-        >
-            <canvas
-                onMouseDown={handleMouseDown}
-                onMouseUp={handleMouseUp}
-                onWheel={handleWheel}
-                onMouseMove={handleMouseMove}
-                ref={canvasRef}
+        <>
+            <div
+                ref={containerRef}
                 style={{
-                    objectFit: 'none',
+                    border: '1px solid #dddddd',
+                    width: '50%',
+                    height: '500px',
+                    overflow: 'hidden',
+                    position: 'relative',
+                }}
+            >
+                <canvas
+                    onMouseDown={handleMouseDown}
+                    onMouseUp={handleMouseUp}
+                    onWheel={handleWheel}
+                    onMouseMove={handleMouseMove}
+                    ref={canvasRef}
+                    style={{
+                        objectFit: 'none',
+                    }}
+                />
+            </div>
+
+            <input
+                type="range"
+                min={MIN_ZOOM}
+                max={MAX_ZOOM}
+                value={zoom}
+                step={0.1}
+                onChange={e => setZoom(parseFloat(e.target.value))}
+                style={{
+                    position: 'absolute',
+                    width: 'fit-content',
+                    bottom: 225,
                 }}
             />
-        </div>
+        </>
     );
 };
 

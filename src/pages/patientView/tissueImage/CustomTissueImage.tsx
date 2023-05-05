@@ -5,6 +5,7 @@ import _ from 'lodash';
 import IFrameLoader from '../../../shared/components/iframeLoader/IFrameLoader';
 import { observer } from 'mobx-react';
 import ZoomImage from '../../../shared/components/imageViewer/ImageViewer';
+import { Link } from 'react-router-dom';
 
 export type IPathologyReportProps = {
     iframeHeight: number;
@@ -20,6 +21,7 @@ export default class CustomTissueImage extends React.Component<
         caseId: any;
         loading: boolean;
         activeIndex: number;
+        casesData: { status: number; message: string; data: string[] };
     }
 > {
     pdfSelectList: any;
@@ -34,6 +36,7 @@ export default class CustomTissueImage extends React.Component<
             caseId: '',
             loading: true,
             activeIndex: 0,
+            casesData: { status: 0, message: '', data: [] },
         };
     }
 
@@ -46,13 +49,24 @@ export default class CustomTissueImage extends React.Component<
 
             this.setState({ studyId: studyId, caseId: caseId });
 
+            const BASE_URL = 'https://ilabportal-file-uploader.crunchyapps.com';
+
             const response = await fetch(
-                `https://ilabportal-file-uploader.crunchyapps.com/get-files/${studyId}/${caseId}`
+                `${BASE_URL}/get-files/${studyId}/${caseId}`
             );
             const jsonResponse = await response.json();
 
             if (jsonResponse.status) {
                 this.setState({ imageData: jsonResponse });
+            }
+
+            const caseResponse = await fetch(
+                `${BASE_URL}/get-case-files/${studyId}`
+            );
+            const jsonCaseResponse = await caseResponse.json();
+
+            if (jsonCaseResponse.status) {
+                this.setState({ casesData: jsonCaseResponse });
             }
 
             this.setState({ loading: false });
@@ -63,15 +77,73 @@ export default class CustomTissueImage extends React.Component<
 
     render() {
         return (
-            <div>
+            <div style={{ display: 'flex' }}>
                 {this.state.loading ? (
                     <p>Loading...</p>
                 ) : this.state.imageData.status ? (
                     <>
+                        <div
+                            style={{
+                                backgroundColor: '#f5f5f5',
+                                border: '1px solid #dddddd',
+                                width: '10%',
+                                height: 'calc(100vh - 237px)',
+                                overflow: 'scroll',
+                            }}
+                        >
+                            {this.state.casesData.status ? (
+                                <>
+                                    {this.state.casesData.data.length > 0 ? (
+                                        <>
+                                            {this.state.casesData.data.map(
+                                                single => (
+                                                    <Link
+                                                        to={`/patient/customTissueImage?studyId=${this.state.studyId}&caseId=${single}`}
+                                                        style={{
+                                                            display: 'block',
+                                                            backgroundColor: `${
+                                                                single ===
+                                                                this.state
+                                                                    .caseId
+                                                                    ? '#3786c2'
+                                                                    : 'none'
+                                                            }`,
+                                                            textAlign: 'center',
+                                                            padding: '10px',
+                                                            color: `${
+                                                                single ===
+                                                                this.state
+                                                                    .caseId
+                                                                    ? '#fff'
+                                                                    : '000'
+                                                            }`,
+                                                            cursor: 'pointer',
+                                                        }}
+                                                        key={single}
+                                                    >
+                                                        {single}
+                                                    </Link>
+                                                )
+                                            )}
+                                        </>
+                                    ) : (
+                                        <span>
+                                            No case study found for which images
+                                            exist
+                                        </span>
+                                    )}
+                                </>
+                            ) : (
+                                <span>
+                                    An error occurered while loading studies
+                                </span>
+                            )}
+                        </div>
+
                         {this.state.imageData.data.length === 0 ? (
                             <p>No images found for this case id</p>
                         ) : (
-                            <div>
+                            <div style={{ width: '90%' }}>
                                 <span
                                     style={{
                                         display: 'block',
@@ -133,15 +205,6 @@ export default class CustomTissueImage extends React.Component<
                                         Next
                                     </button>
                                 </div>
-
-                                <span
-                                    style={{
-                                        display: 'block',
-                                        textAlign: 'center',
-                                    }}
-                                >
-                                    (Note: Use mouse wheel to zoom in and out)
-                                </span>
                             </div>
                         )}
                     </>
