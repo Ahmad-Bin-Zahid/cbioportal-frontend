@@ -186,6 +186,14 @@ export default class CustomTissueImage extends React.Component<
                                         }`}
                                     />
 
+                                    {/* <iframe src={`https://ilabportal-file-uploader.crunchyapps.com/uploads/${
+                                            this.state.studyId
+                                        }/${this.state.caseId}/images/${
+                                            this.state.imageData.data[
+                                                this.state.activeIndex
+                                            ]
+                                        }`} width="846" height='500'></iframe> */}
+
                                     <button
                                         onClick={() =>
                                             this.setState({

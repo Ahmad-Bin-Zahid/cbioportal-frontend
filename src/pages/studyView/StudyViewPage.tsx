@@ -70,6 +70,7 @@ import { HelpWidget } from 'shared/components/HelpWidget/HelpWidget';
 import URL from 'url';
 import { buildCBioPortalPageUrl } from 'shared/api/urls';
 import CustomPathologyReport from './customPathology/CustomPathology';
+import CompleteStudyReport from './completeStudyReport/CompleteStudyReport';
 import WindowStore from 'shared/components/window/WindowStore';
 
 export interface IStudyViewPageProps {
@@ -638,6 +639,23 @@ export default class StudyViewPage extends React.Component<
                                     >
                                         <div>
                                             <CustomPathologyReport
+                                                iframeHeight={
+                                                    WindowStore.size.height -
+                                                    220
+                                                }
+                                            />
+                                        </div>
+                                    </MSKTab>
+                                    <MSKTab
+                                        key={6}
+                                        id={
+                                            StudyViewPageTabKeyEnum.COMPLETE_STUDY_REPORT
+                                        }
+                                        linkText={'Complete Study Report'}
+                                        hide={false}
+                                    >
+                                        <div>
+                                            <CompleteStudyReport
                                                 iframeHeight={
                                                     WindowStore.size.height -
                                                     220
