@@ -176,7 +176,7 @@ export default class CustomTissueImage extends React.Component<
                                         Prev
                                     </button>
 
-                                    <ZoomImage
+                                    {/* <ZoomImage
                                         image={`https://ilabportal-file-uploader.crunchyapps.com/uploads/${
                                             this.state.studyId
                                         }/${this.state.caseId}/images/${
@@ -184,15 +184,17 @@ export default class CustomTissueImage extends React.Component<
                                                 this.state.activeIndex
                                             ]
                                         }`}
-                                    />
+                                    /> */}
 
-                                    {/* <iframe src={`https://ilabportal-file-uploader.crunchyapps.com/uploads/${
-                                            this.state.studyId
-                                        }/${this.state.caseId}/images/${
+                                    <iframe
+                                        src={`http://localhost:4010/apps/viewer/viewer.html?slideId=${
                                             this.state.imageData.data[
                                                 this.state.activeIndex
                                             ]
-                                        }`} width="846" height='500'></iframe> */}
+                                        }`}
+                                        width="846"
+                                        height="500"
+                                    ></iframe>
 
                                     <button
                                         onClick={() =>
