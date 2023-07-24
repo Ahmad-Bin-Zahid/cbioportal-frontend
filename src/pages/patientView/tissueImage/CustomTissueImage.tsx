@@ -158,6 +158,7 @@ export default class CustomTissueImage extends React.Component<
                                     style={{
                                         display: 'flex',
                                         justifyContent: 'center',
+                                        paddingLeft: '20px',
                                     }}
                                 >
                                     <button
@@ -169,7 +170,7 @@ export default class CustomTissueImage extends React.Component<
                                         }
                                         disabled={this.state.activeIndex === 0}
                                         style={{
-                                            height: '500px',
+                                            height: 'calc(100vh - 280px)',
                                             padding: '15px',
                                         }}
                                     >
@@ -192,8 +193,11 @@ export default class CustomTissueImage extends React.Component<
                                                 this.state.activeIndex
                                             ]
                                         }`}
-                                        width="846"
-                                        height="500"
+                                        style={{
+                                            height: 'calc(100vh - 280px)',
+                                            width: '100%',
+                                            margin: 0,
+                                        }}
                                     ></iframe>
 
                                     <button
@@ -208,7 +212,7 @@ export default class CustomTissueImage extends React.Component<
                                             this.state.imageData.data.length - 1
                                         }
                                         style={{
-                                            height: '500px',
+                                            height: 'calc(100vh - 280px)',
                                             padding: '15px',
                                         }}
                                     >
