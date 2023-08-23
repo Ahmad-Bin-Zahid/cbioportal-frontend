@@ -4,7 +4,7 @@ export enum StudyViewPageTabKeyEnum {
     HEATMAPS = 'heatmaps',
     CN_SEGMENTS = 'cnSegments',
     FILES_AND_LINKS = 'filesAndLinks',
-    CUSTOM_PATHOLOGY = 'customPathology',
+    SUMMARY_CLINICO_PATHOLOGY_FEATURES = 'summaryClinicoPathologyFeatures',
     COMPLETE_STUDY_REPORT = 'completeStudyReport',
 }
 

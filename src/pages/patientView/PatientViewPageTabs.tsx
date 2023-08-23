@@ -51,8 +51,8 @@ export enum PatientViewPageTabs {
     TrialMatchTab = 'trialMatchTab',
     MutationalSignatures = 'mutationalSignatures',
     PathwayMapper = 'pathways',
-    CustomPathologyReport = 'customPathologyReport',
-    CustomTissueImage = 'customTissueImage',
+    SummaryClinicoPathologyFeatures = 'summaryClinicoPathologyFeatures',
+    HandEandIHCs = 'H&EandIHCs',
 }
 
 export const PatientViewResourceTabPrefix = 'openResource_';
@@ -642,8 +642,8 @@ export function tabs(
     tabs.push(
         <MSKTab
             key={9}
-            id={PatientViewPageTabs.CustomPathologyReport}
-            linkText="Custom Pathology Report"
+            id={PatientViewPageTabs.SummaryClinicoPathologyFeatures}
+            linkText="Summary Clinico Pathology Features"
             hide={false}
         >
             <div>
@@ -657,8 +657,8 @@ export function tabs(
     tabs.push(
         <MSKTab
             key={10}
-            id={PatientViewPageTabs.CustomTissueImage}
-            linkText="Custom Tissue Image"
+            id={PatientViewPageTabs.HandEandIHCs}
+            linkText="H & E and IHCs"
             hide={false}
         >
             <div>

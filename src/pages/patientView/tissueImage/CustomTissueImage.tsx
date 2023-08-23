@@ -98,7 +98,7 @@ export default class CustomTissueImage extends React.Component<
                                             {this.state.casesData.data.map(
                                                 single => (
                                                     <Link
-                                                        to={`/patient/customTissueImage?studyId=${this.state.studyId}&caseId=${single}`}
+                                                        to={`/patient/H&EandIHCs?studyId=${this.state.studyId}&caseId=${single}`}
                                                         style={{
                                                             display: 'block',
                                                             backgroundColor: `${

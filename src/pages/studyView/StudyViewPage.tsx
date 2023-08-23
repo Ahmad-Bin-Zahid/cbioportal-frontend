@@ -632,9 +632,11 @@ export default class StudyViewPage extends React.Component<
                                     <MSKTab
                                         key={5}
                                         id={
-                                            StudyViewPageTabKeyEnum.CUSTOM_PATHOLOGY
+                                            StudyViewPageTabKeyEnum.SUMMARY_CLINICO_PATHOLOGY_FEATURES
                                         }
-                                        linkText={'Custom Pathology'}
+                                        linkText={
+                                            'Summary Clinico Pathology Features'
+                                        }
                                         hide={false}
                                     >
                                         <div>
