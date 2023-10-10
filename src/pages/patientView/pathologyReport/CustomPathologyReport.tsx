@@ -25,7 +25,7 @@ export default class PathologyReport extends React.Component<
         const studyId = searchParams.get('studyId');
         const caseId = searchParams.get('caseId');
 
-        let pdfURL = `https://ilabportal-file-uploader.crunchyapps.com/uploads/${studyId}/${caseId}/report/${caseId}.pdf`;
+        let pdfURL = `https://hemepathfileutility.unmc.edu/uploads/${studyId}/${caseId}/report/${caseId}.pdf`;
 
         this.state = { pdfUrl: this.buildPDFUrl(pdfURL) };
     }

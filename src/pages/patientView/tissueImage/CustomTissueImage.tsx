@@ -49,7 +49,7 @@ export default class CustomTissueImage extends React.Component<
 
             this.setState({ studyId: studyId, caseId: caseId });
 
-            const BASE_URL = 'https://ilabportal-file-uploader.crunchyapps.com';
+            const BASE_URL = 'https://hemepathfileutility.unmc.edu';
 
             const response = await fetch(
                 `${BASE_URL}/get-files/${studyId}/${caseId}`
@@ -188,7 +188,7 @@ export default class CustomTissueImage extends React.Component<
                                     /> */}
 
                                     <iframe
-                                        src={`http://localhost:4010/apps/viewer/viewer.html?slideId=${
+                                        src={`https://pathology.unmc.edu/apps/viewer/viewer.html?slideId=${
                                             this.state.imageData.data[
                                                 this.state.activeIndex
                                             ]
