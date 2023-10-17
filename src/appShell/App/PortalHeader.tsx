@@ -122,9 +122,9 @@ export default class PortalHeader extends React.Component<
                             src={require('../../rootImages/portalLogo.png')}
                             alt="cBioPortal Logo"
                         />
-                        <span style={{ fontSize: '22px', marginLeft: '10px' }}>
-                            Iqbal Lab BioPortal: University of Nebraska Medical
-                            Center
+                        <span style={{ fontSize: '18px', marginLeft: '10px' }}>
+                            T-Cell Lymphoma Genomics and Digital Pathology
+                            Network: TCL-GDPN
                         </span>
                     </Link>
                     <nav id="main-nav">
@@ -175,13 +175,20 @@ export default class PortalHeader extends React.Component<
                             </Else>
                         </If>
                     </If>
-                    <If condition={getInstituteLogoUrl()}>
+
+                    <img
+                        id="institute-logo"
+                        src={require('../../rootImages/rightLogo.jpeg')}
+                        alt="Institute Logo"
+                    />
+
+                    {/* <If condition={getInstituteLogoUrl()}>
                         <img
                             id="institute-logo"
                             src={getInstituteLogoUrl()}
                             alt="Institute Logo"
                         />
-                    </If>
+                    </If> */}
                 </div>
             </header>
         );

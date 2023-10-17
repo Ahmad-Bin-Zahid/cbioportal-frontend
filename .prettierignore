@@ -1,4 +1,5 @@
 *.r
+*jpeg
 *png
 *eps
 *pdf

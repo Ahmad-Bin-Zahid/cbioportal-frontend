@@ -238,9 +238,15 @@ export default class PortalFooter extends React.Component<
                             <h3>CONTACT</h3>
                             <ul>
                                 <li>
+                                    <span>Ab Rauf Shah</span>
+                                </li>
+                                <li>
                                     <a href={`mailto:abrshah@unmc.edu`}>
                                         abrshah@unmc.edu
                                     </a>
+                                </li>
+                                <li>
+                                    <span>+1-4025597921</span>
                                     {/* <a
                                         href={`mailto:${
                                             getServerConfig().skin_email_contact
