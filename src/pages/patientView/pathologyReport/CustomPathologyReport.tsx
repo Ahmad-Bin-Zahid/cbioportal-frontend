@@ -27,7 +27,8 @@ export default class PathologyReport extends React.Component<
 
         let pdfURL = `https://hemepathfileutility.unmc.edu/uploads/${studyId}/${caseId}/report/${caseId}.pdf`;
 
-        this.state = { pdfUrl: this.buildPDFUrl(pdfURL) };
+        // this.state = { pdfUrl: this.buildPDFUrl(pdfURL) };
+        this.state = { pdfUrl: pdfURL };
     }
 
     buildPDFUrl(url: string): string {
